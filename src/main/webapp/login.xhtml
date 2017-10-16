@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html   xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html" 
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html" id="fview">
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>appCor3</title>
+
+		<f:metadata>
+			<ui:insert name="metadata"/>
+		</f:metadata>
+
+  	<h:head> 
+  	     <script type="text/javascript" src="#{resource['js/jquery-2.2.2.min.js']}"></script>
+         <link rel="stylesheet" type="text/css" href="#{resource['css/loginstyle.css']}"/>
+       <!--  <link href="resources/css/loginstyle.css" rel="stylesheet" type="text/css" />  -->
+  	</h:head>
+
+  	<h:body>
+	<div class="wrapper">
+	<div class="container">
+		<h1>Bienvenido</h1>
+
+		<h:form style="form">
+		    <p:growl id="growl" showDetail="true" sticky="true" />  
+ 
+			<table  border="0" align="center">
+					<tr>
+						<td> 
+						    <p:inputText  styleClass="campoText" placeholder="usuario"/>
+						</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td><p:password  styleClass="campoText" placeholder="contraseña" /></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr> 
+						<td><p:commandButton value="Ingresar" styleClass="boton" action="#" update="growl"  style="width:100px"/>
+						</td>
+					</tr>
+				</table>			
+		</h:form>
+
+	</div>
+
+		<ul class="bg-bubbles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+		
+  	</h:body>
+  
+  </f:view>
+</html>
