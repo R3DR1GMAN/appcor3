@@ -44,7 +44,7 @@
 	</dependencies>
 	
   <build>
-    <finalName>appcor3</finalName>
+    <finalName>ROOT</finalName>
   </build>
   
 </project>
