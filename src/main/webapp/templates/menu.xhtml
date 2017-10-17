@@ -1,0 +1,51 @@
+
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<script >
+		/*$(document).ready(function() {
+
+		   $('.ui-menuitem-link').each(function(){
+		       if(window.location.pathname.indexOf($(this).attr('href')) != -1) {
+		           $(this).css('background', 'red');
+		       }
+		   });  
+		})*/
+	</script>
+
+
+	<h:form>
+	
+	   <p:panelMenu style="font:normal  normal 8.25pt Tahoma; font-size: 8.25pt; font-family: Tahoma;">
+	   	
+          <p:submenu label="Ajax Menuitem">                        
+                <p:menuitem value="Consulta Laboratorio" actionListener="#{mBMenu.save}" icon="ui-icon-disk" />
+                <p:menuitem value="Consulta Patologica " actionListener="#{mBMenu.update}" icon="ui-icon-arrowrefresh-1-w" />
+          </p:submenu>
+          
+          <p:submenu label="Sin Ajax Menuitem">
+                <p:menuitem value="Consulta Eliminar" actionListener="#{mBMenu.delete}" icon="ui-icon-close" ajax="false"/> 
+          </p:submenu> 
+          
+          <p:submenu label="Navegando">
+              <p:submenu label="Asociados" icon="ui-icon-extlink">
+				<p:submenu label="Paginas" icon="ui-icon-heart">
+				        <p:menuitem value="Inicio"   url="/pages/home.xhtml"       icon="ui-icon-home" />
+						<p:menuitem value="Pagina 1" outcome="/pages/page1.xhtml" icon="ui-icon-disk" styleClass="#{view.viewId == '/pages/page1.xhtml'? 'ui-state-active' : ''}"/>
+						<p:menuitem value="Pagina 2" outcome="/pages/page2.xhtml" icon="ui-icon-document" styleClass="#{view.viewId == '/pages/page2.xhtml'? 'ui-state-active' : ''}"/>
+						<p:menuitem value="Pagina 3" outcome="/pages/page3.xhtml" icon="ui-icon-arrowthick-1-s" styleClass="#{view.viewId == '/pages/page3.xhtml'? 'ui-state-active' : ''}"/>
+						<p:menuitem value="Pagina 4" outcome="/pages/page4.xhtml" icon="ui-icon-document"  styleClass="#{view.viewId == '/pages/page4.xhtml'? 'ui-state-active' : ''}"/>
+				</p:submenu>
+			  </p:submenu>			
+		   </p:submenu>
+       
+        </p:panelMenu>
+        
+	</h:form>
+</ui:composition>
+
+
