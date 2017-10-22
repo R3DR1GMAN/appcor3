@@ -1,4 +1,4 @@
-package com.redrigsoft.bean;
+package com.redrigsoft.managedbean;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;

@@ -1,4 +1,4 @@
-package com.redrigsoft.bean;
+package com.redrigsoft.managedbean;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -27,7 +27,7 @@ public class MBLogin {
 	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Observación",  "Ingresar usuario y contraseña") );
 	        			
 		}else{
-			   if(UsuarioDao.validarUsuarioContrasena(user, pass)){
+			   if(UsuarioDao.validarUsuarioContrasenia(user, pass)!=null){ 
 			      urlReturn="pages/home";  
 			   }else{
 					 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Observación", "Usuario y/o contraseña incorrectos"));
