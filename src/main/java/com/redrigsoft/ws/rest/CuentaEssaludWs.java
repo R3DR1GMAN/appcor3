@@ -1,7 +1,11 @@
 package com.redrigsoft.ws.rest;
 
+import java.util.ArrayList;
+
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -31,14 +35,13 @@ public class CuentaEssaludWs {
 			resultadoWs = FormatoJson.respuestaJson("cuenta_essalud", true, jsonCuenta);
 		} catch (Exception e) {
 			System.out.println("*Ocurrio un error en consultarCuentaPorCodDispositivo(): "+e); 
-			resultadoWs = FormatoJson.respuestaJson("cuenta_essalud", false, gson.toJson(new BCuentaEssalud()));
+			resultadoWs = FormatoJson.respuestaJson("cuenta_essalud", false, "");
 		}
 		
 		System.out.println("*resultadoWs: "+resultadoWs); 
 		return resultadoWs;
 	}
 	
-/*	
 	
 	@POST
 	@Path("/registrar") 
@@ -48,33 +51,23 @@ public class CuentaEssaludWs {
 		System.out.println("-> registrarCuentaEssalud()::: v_cadena: "+v_cadena);   
 		String resultadoWs="";	
 		
-		int id_Usuario = UsuarioDao.autorizarUsuario(v_claveApi);
-		
-		if(id_Usuario!=0){
-			BCuentaEssalud[] bCuenta = gson.fromJson(v_cadena, BCuentaEssalud[].class);		
-						         
-			ArrayList<String> resultadoDao = CuentaEsSaludDao.insertarCuentaEssalud(bCuenta[0]); 
-			
-			if(resultadoDao.get(0).equals("0")){ 
-				   resultadoWs = FormatoJson.respuestaJson("Registra cuenta", "true",  "Se registro correctamente la cuenta del usuario "+bCuenta[0].getUsuario());
-			}else if(resultadoDao.get(0).equals("1")){ 
-				   resultadoWs = FormatoJson.respuestaJson("Registra cuenta", "false", "El usuario "+bCuenta[0].getUsuario()+" ya se encuentra registrado en el sistema");
-			}else if(resultadoDao.get(0).equals("2")){ 
-				   resultadoWs = FormatoJson.respuestaJson("Registra cuenta", "false", "El email "+bCuenta[0].getEmail()+" ya se encuentra registrado en el sistema");
-			}else{
-				   resultadoWs = FormatoJson.respuestaJson("Registra cuenta", "false", "No se pudo registrar al "+bCuenta[0].getUsuario()+" en el sistema");
-			}
-				
+		BCuentaEssalud bCuenta = gson.fromJson(v_cadena, BCuentaEssalud.class);								         
+		ArrayList<String> resultadoDao = CuentaEssaludDao.insertarCuentaEssalud(3, bCuenta); 
+					
+		if(resultadoDao.get(0).equals("0")){
+		   resultadoWs = FormatoJson.respuestaJson("Registro usuario", "true",  "Se registro correctamente al usuario '"+bCuenta.getUsuario());
 		}else{
-			resultadoWs = FormatoJson.respuestaKo("centro_asistencial", false, "Se requiere una clave Api para autenticación");
+		   resultadoWs = FormatoJson.respuestaJson("Registro usuario", "false", resultadoDao.get(1));
 		}
-		
-		System.out.println("*resultadoWs: "+resultadoWs); 
-		
+
+		System.out.println("*resultadoWs: "+resultadoWs); 		
 		return resultadoWs;
 	}
+
 	
 	
+	
+/*	
 	@POST
 	@Path("/actualizar")
 	@Consumes(MediaType.APPLICATION_JSON)  

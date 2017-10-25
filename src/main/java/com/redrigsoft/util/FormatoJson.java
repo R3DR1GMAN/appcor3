@@ -50,7 +50,7 @@ public class FormatoJson {
 		JSONObject obj = new JSONObject();
 		try {
 			obj.put("tag", tag);
-			obj.put("status", new Boolean(status));
+			obj.put("status", status);
 			obj.put("objeto", jsonObjet);
 		} catch (JSONException e) { 
 			System.out.println("Error en respuestaJson(): "+e);  

@@ -1,5 +1,7 @@
 package com.redrigsoft.dao;
 
+import java.sql.Blob;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +15,7 @@ import org.codehaus.jettison.json.JSONObject;
 
 import com.redrigsoft.bean.BCuentaEssalud;
 import com.redrigsoft.db.DBConexion;
+import com.redrigsoft.util.Seguridad;
 
 public class CuentaEssaludDao {
 	 
@@ -30,7 +33,7 @@ public class CuentaEssaludDao {
 		 try {
 			   
 			    con = DBConexion.crearConexionDB();			    
-			    pst = con.prepareStatement("SELECT *FROM cuenta_usuario cu INNER  JOIN  usuario us ON  us.idUsuario= cu.idUsuario WHERE  cu.idCuenta=? AND cu.cod_dispositivo=?");
+			    pst = con.prepareStatement("SELECT *FROM cuenta_usuario cu INNER JOIN  usuario us ON  us.idUsuario= cu.idUsuario WHERE  cu.idCuenta=? AND cu.cod_dispositivo=?");
 			    pst.setInt(1, idCuenta);
 			    pst.setString(2, cod_dispositivo);
 				rs = pst.executeQuery();				
@@ -57,111 +60,63 @@ public class CuentaEssaludDao {
 		return bCuenta;		
 	}
 	
-/*	
-	public static JSONArray obtenerCuentaPorIdDispositivoJson(BCuentaEssalud cuenta){
 
-		 JSONArray jArrayCuentas = new JSONArray();
-		 
-		 JSONObject jCuenta = new JSONObject();  
-			  
-		   try {
-
-				  	jCuenta.put("idCuenta", cuenta.getIdCuenta());
-				  	jCuenta.put("usuario",  cuenta.getUsuario());
-				  	jCuenta.put("email", cuenta.getEmail());
-				  	jCuenta.put("idDispositivo", cuenta.getIdDispositivo());
-				  	jCuenta.put("idToken", cuenta.getIdToken());
-				  	jCuenta.put("estado",   cuenta.getEstado());
-				  	jCuenta.put("fec_registro", cuenta.getFec_registro());
-				  	jCuenta.put("fec_ult_sync", cuenta.getFec_ult_sync());
-				  	
-				  	jArrayCuentas.put(jCuenta);
-				
-			} catch (JSONException e) {
-				System.out.println("Error en obtenerCuentaPorIdDispositivoJson(): "+e);  
-			}
-	
-		 
-		return jArrayCuentas;
-	}
-	
-	
-	public static ArrayList<String> insertarCuentaEssalud(BCuentaEssalud bCuenta){
+	public static ArrayList<String> insertarCuentaEssalud(int idCuenta, BCuentaEssalud bCuenta){
 		   System.out.println("-> DAO insertarCuentaEssalud():");
 
-		   boolean encontrado = false; 
-		   ArrayList<String> resultadoArray = new ArrayList<String>();
-		   
+		   ArrayList<String> resultadoArray = new ArrayList<String>();		   
 		   Connection        con = null;
-		   PreparedStatement pst = null;
-		   ResultSet         rs  = null;
+		   CallableStatement cst = null;
 
-		   
 		   if(bCuenta!=null && !bCuenta.getUsuario().isEmpty() && !bCuenta.getEmail().isEmpty()){
 			   try {
-				   
 				    con = DBConexion.crearConexionDB();				    
-				    pst = con.prepareStatement("SELECT *FROM cuenta_essalud_maps WHERE usuario='"+bCuenta.getUsuario().trim()+"'");
-					rs  = pst.executeQuery();
-		
-					while(rs.next()){
-					   encontrado=true;
-		
-					}
-										
-					if(!encontrado){
-						pst = con.prepareStatement("SELECT *FROM cuenta_essalud_maps WHERE email='"+bCuenta.getEmail().trim()+"'");
-						rs = pst.executeQuery();
-						
-						while(rs.next()){
-						   encontrado=true;
-						}
-						
-						if(!encontrado){
-							
-							pst = con.prepareStatement("INSERT INTO cuenta_essalud_maps (usuario, email, idDispositivo, idToken, estado, fec_registro) VALUES (?,?,?,?,?,?)");
-					   		pst.setString(1, bCuenta.getUsuario());
-					   		pst.setString(2, bCuenta.getEmail());
-					   		pst.setString(3, bCuenta.getIdDispositivo());
-					   		pst.setString(4, bCuenta.getIdToken());
-					   		pst.setString(5, "1");
-					   		pst.setString(6, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-					   		
-					   		int records = pst.executeUpdate();
-					   		
-					   		if (records > 0) {
-					   			resultadoArray.add("0");
-								resultadoArray.add("La nueva cuenta se registro correctamente en el sistema");
-							
-					   		}else{
-								resultadoArray.add("3");
-								resultadoArray.add("No se pudo registrar la nueva cuenta");
-							}
-							
-						}else{
-							resultadoArray.add("2");
-							resultadoArray.add("El email "+bCuenta.getEmail()+" ya se encuentra registrado en el sistema");
-						}
-						
-					}else{
-						resultadoArray.add("1");
-						resultadoArray.add("El usuario "+bCuenta.getUsuario()+" ya se encuentra registrado en el sistema");
-					} 										
-				 
-			    } catch (Exception e) {
-			    	resultadoArray.add("4");
-					resultadoArray.add("Ocurrio un error en insertarCuentaEssalud()");					
-					System.out.println("Ocurrio un error en insertarCuentaEssalud(): "+e);
-					
-			    }finally {
-			    	DBConexion.cerrarConexionDB(con, pst, null, rs);		    	
-				}
+				    cst = con.prepareCall("{call mantenimientoUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			   		cst.setInt   (1, 0);
+			   		cst.setString(2, bCuenta.getUsuario());
+			   		cst.setString(3, "");
+			   		cst.setString(4, "");   		
+			   		cst.setString(5, "");
+			   		cst.setString(6, "");
+			   		cst.setString(7, "");
+			   		cst.setString(8, "");
+			   		cst.setString(9, "");
+			   		cst.setString(10,bCuenta.getEmail());		   		
+			   		cst.setString(11,"");
+			   		
+			   		cst.setInt   (12, 3); //Cuenta EsSalud
+			   		cst.setInt   (13, 0);
+			   		cst.setString(14,Seguridad.generarClaveApi());
+			   		cst.setString(15,bCuenta.getCodDispositivo());
+			   		cst.setString(16,bCuenta.getCodToken());
+			   		cst.setString(17,"");
+			   		cst.setBlob  (18,(Blob) con.createBlob()); 
+			   		cst.setString(19,""); 
+			   		cst.setString(20,"1");
+			   		cst.setDate  (21, null);
+			   		cst.setDate  (22, new java.sql.Date(0)); 
+			   		cst.setDate  (23, null);
+			   		cst.setString(24,"I");
+			   		cst.registerOutParameter(25, java.sql.Types.VARCHAR); 
+			   		cst.registerOutParameter(26, java.sql.Types.VARCHAR); 		   		
+			   		cst.execute();
+			   		
+			   		resultadoArray.add(cst.getString(25));
+			   		resultadoArray.add(cst.getString(26));
+			
+				   }catch (Exception e) {
+					    System.out.println("*Ocurrió un error en insertarCuentaEssalud(): "+e); 
+					    resultadoArray.add("1");
+					    resultadoArray.add("Error al insertar Usuario");
+				   } finally {		    
+				    	DBConexion.cerrarConexionDB(con, null,cst, null);	
+				   }
 		   }
 		   
-		return resultadoArray;	
+		return resultadoArray;
 	}
 	
-	
+/*	
 	public static int actualizarCuentaEssalud(BCuentaEssalud bCuentaEssalud){ 
 		System.out.println("-> DAO actualizarCuentaEssalud()::: idDispositivo:"+bCuentaEssalud.getIdDispositivo()); 
 		   int resultado         = 0;
