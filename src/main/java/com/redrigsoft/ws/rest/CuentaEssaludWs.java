@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 import com.redrigsoft.bean.BCuentaEssalud;
 import com.redrigsoft.dao.CuentaEssaludDao;
+import com.redrigsoft.dao.UsuarioDao;
 import com.redrigsoft.util.FormatoJson;
   
 @Path("cuentaessalud")
@@ -65,9 +66,7 @@ public class CuentaEssaludWs {
 	}
 
 	
-	
-	
-/*	
+		
 	@POST
 	@Path("/actualizar")
 	@Consumes(MediaType.APPLICATION_JSON)  
@@ -75,18 +74,17 @@ public class CuentaEssaludWs {
 	public String actualizarCuentaEssalud(String v_cadena, @HeaderParam("authorization") String v_claveApi){
 		System.out.println("-> actualizarCuentaEssalud()::: v_cadena: "+v_cadena);   
 		String resultadoWs="";	
-		
-		int id_Usuario = UsuarioDao.autorizarUsuario(v_claveApi);
+		int id_Usuario = UsuarioDao.autorizarUsuario(3, v_claveApi);
 		
 		if(id_Usuario!=0){
-			BCuentaEssalud[] bCuenta = gson.fromJson(v_cadena, BCuentaEssalud[].class);		
-						         
-			int resultadoDao = CuentaEsSaludDao.actualizarCuentaEssalud(bCuenta[0]); 
+			
+			BCuentaEssalud bCuenta = gson.fromJson(v_cadena, BCuentaEssalud.class);			         
+			int resultadoDao = CuentaEssaludDao.actualizarCuentaEssalud(3, id_Usuario, bCuenta); 
 			
 			if(resultadoDao==1){ 
-				   resultadoWs = FormatoJson.respuestaJson("Actualiza cuenta", "true",  "Se actualizo correctamente la cuenta del usuario "+bCuenta[0].getUsuario());
+				   resultadoWs = FormatoJson.respuestaJson("Actualiza cuenta", "true",  "Se actualizo correctamente la cuenta del usuario "+bCuenta.getUsuario());
 			}else if(resultadoDao==0){
-				   resultadoWs = FormatoJson.respuestaJson("Actualiza cuenta", "false", "No se pudo actualizar al "+bCuenta[0].getUsuario()+" en el sistema");
+				   resultadoWs = FormatoJson.respuestaJson("Actualiza cuenta", "false", "No se pudo actualizar al "+bCuenta.getUsuario()+" en el sistema");
 			}
 				
 		}else{
@@ -97,6 +95,6 @@ public class CuentaEssaludWs {
 		
 		return resultadoWs;
 	}
-*/
+
 
 }

@@ -27,7 +27,7 @@ public class MBLogin {
 	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Observación",  "Ingresar usuario y contraseña") );
 	        			
 		}else{
-			   if(UsuarioDao.validarUsuarioContrasenia(user, pass)!=null){ 
+			   if(UsuarioDao.validarUsuarioContrasenia(1, user, pass)!=null){ 
 			      urlReturn="pages/home";  
 			   }else{
 					 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Observación", "Usuario y/o contraseña incorrectos"));

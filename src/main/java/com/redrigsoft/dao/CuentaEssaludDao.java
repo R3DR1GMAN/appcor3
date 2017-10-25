@@ -116,19 +116,21 @@ public class CuentaEssaludDao {
 		return resultadoArray;
 	}
 	
-/*	
-	public static int actualizarCuentaEssalud(BCuentaEssalud bCuentaEssalud){ 
-		System.out.println("-> DAO actualizarCuentaEssalud()::: idDispositivo:"+bCuentaEssalud.getIdDispositivo()); 
+	
+	public static int actualizarCuentaEssalud(int idCuenta, int idUsuario, BCuentaEssalud bCuentaEssalud){ 
+		System.out.println("-> DAO actualizarCuentaEssalud()::: idDispositivo:"+bCuentaEssalud.getCodDispositivo()); 
 		   int resultado         = 0;
 		   Connection        con = null;
 		   PreparedStatement pst = null;
 
 		   try {
 			   		con = DBConexion.crearConexionDB();
-			   		pst = con.prepareStatement("UPDATE cuenta_essalud_maps SET idToken=? WHERE idDispositivo=?");
+			   		pst = con.prepareStatement("UPDATE cuenta_usuario SET cod_token=? WHERE idCuenta=? AND idUsuario=? AND idDispositivo=?");
 	   		 
-			   		pst.setString(1, bCuentaEssalud.getIdToken());
-			   		pst.setString(2, bCuentaEssalud.getIdDispositivo());
+			   		pst.setString(1, bCuentaEssalud.getCodToken());
+			   		pst.setInt   (2, idCuenta);
+			   		pst.setInt   (3, idUsuario);
+			   		pst.setString(4, bCuentaEssalud.getCodDispositivo());
 
 			   		if (pst.executeUpdate()> 0) { // Num de registros afectados
 			   			resultado= 1;
@@ -146,6 +148,7 @@ public class CuentaEssaludDao {
 	}
 	
 	
+/*	
 	public static int actualizarFechaUltimaSync(String idDispositivo, String idToken){
 		System.out.println("-> DAO actualizarFechaUltimaSync()::: idDispositivo:"+idDispositivo+" idToken:"+idToken); 
 		   int resultado         = 0;
