@@ -36,7 +36,7 @@ public class CuentaEssaludDao {
 					bCuenta = new BCuentaEssalud();
 					bCuenta.setIdCuenta(rs.getInt("idCuenta"));
 					bCuenta.setIdUsuario(rs.getInt("idUsuario")); 
-					bCuenta.setUsuario(rs.getString("usuario")); 
+					bCuenta.setUsuario(rs.getString("user")); 
 					bCuenta.setEmail(rs.getString("email")); 
 					bCuenta.setCodDispositivo(rs.getString("cod_dispositivo"));
 					bCuenta.setCodToken(rs.getString("cod_token"));
@@ -97,6 +97,9 @@ public class CuentaEssaludDao {
 			   		
 			   		resultadoArray.add(cst.getString(25));
 			   		resultadoArray.add(cst.getString(26));
+			   		
+			   	    System.out.println("*codResultado: "+resultadoArray.get(0));
+			   	    System.out.println("*desResultado: "+resultadoArray.get(1));
 			
 				   }catch (Exception e) {
 					    System.out.println("*Ocurrió un error en insertarCuentaEssalud(): "+e); 

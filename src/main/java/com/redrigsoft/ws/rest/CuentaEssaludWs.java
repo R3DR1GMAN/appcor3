@@ -58,14 +58,13 @@ public class CuentaEssaludWs {
 		if(resultadoDao.get(0).equals("0")){
 		   resultadoWs = FormatoJson.respuestaJson("Registro usuario", "true",  "Se registro correctamente al usuario '"+bCuenta.getUsuario());
 		}else{
-		   resultadoWs = FormatoJson.respuestaJson("Registro usuario", "false", resultadoDao.get(1));
+		   resultadoWs = FormatoJson.respuestaJson("Registro usuario", "false", "Lo sentimos, ocurrió un error al tratar de crear al usuario");
 		}
 
 		System.out.println("*resultadoWs: "+resultadoWs); 		
 		return resultadoWs;
 	}
 
-	
 		
 	@POST
 	@Path("/actualizar")
