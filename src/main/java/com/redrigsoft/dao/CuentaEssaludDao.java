@@ -37,7 +37,8 @@ public class CuentaEssaludDao {
 					bCuenta.setIdCuenta(rs.getInt("idCuenta"));
 					bCuenta.setIdUsuario(rs.getInt("idUsuario")); 
 					bCuenta.setUsuario(rs.getString("user")); 
-					bCuenta.setEmail(rs.getString("email")); 
+					bCuenta.setEmail(rs.getString("email"));
+					bCuenta.setClaveApi(rs.getString("claveApi"));
 					bCuenta.setCodDispositivo(rs.getString("cod_dispositivo"));
 					bCuenta.setCodToken(rs.getString("cod_token"));
 					bCuenta.setEstado(rs.getString("estado")); 
