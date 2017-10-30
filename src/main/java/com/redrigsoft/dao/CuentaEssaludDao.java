@@ -80,7 +80,7 @@ public class CuentaEssaludDao {
 			   		
 			   		cst.setInt   (12, 3); //Cuenta EsSalud
 			   		cst.setInt   (13, 0);
-			   		cst.setString(14,Seguridad.generarClaveApi());
+			   		cst.setString(14,bCuenta.getClaveApi());
 			   		cst.setString(15,bCuenta.getCodDispositivo());
 			   		cst.setString(16,bCuenta.getCodToken());
 			   		cst.setString(17,"");

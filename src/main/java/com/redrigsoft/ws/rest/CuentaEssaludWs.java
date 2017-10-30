@@ -16,6 +16,7 @@ import com.redrigsoft.bean.BCuentaEssalud;
 import com.redrigsoft.dao.CuentaEssaludDao;
 import com.redrigsoft.dao.UsuarioDao;
 import com.redrigsoft.util.FormatoJson;
+import com.redrigsoft.util.Seguridad;
   
 @Path("cuentaessalud")
 public class CuentaEssaludWs {
@@ -52,11 +53,12 @@ public class CuentaEssaludWs {
 		System.out.println("-> registrarCuentaEssalud()::: v_cadena: "+v_cadena);   
 		String resultadoWs="";	
 		
-		BCuentaEssalud bCuenta = gson.fromJson(v_cadena, BCuentaEssalud.class);								         
+		BCuentaEssalud bCuenta = gson.fromJson(v_cadena, BCuentaEssalud.class);
+		bCuenta.setClaveApi(Seguridad.generarClaveApi());
 		ArrayList<String> resultadoDao = CuentaEssaludDao.insertarCuentaEssalud(3, bCuenta); 
 					
 		if(resultadoDao.get(0).equals("0")){
-		   resultadoWs = FormatoJson.respuestaJson("Registro usuario", "true",  "Se registro correctamente al usuario '"+bCuenta.getUsuario());
+		   resultadoWs = FormatoJson.respuestaJson("Registro usuario", "true", gson.toJson(bCuenta));
 		}else{
 		   resultadoWs = FormatoJson.respuestaJson("Registro usuario", "false", "Lo sentimos, ocurrió un error al tratar de crear al usuario");
 		}
@@ -94,6 +96,4 @@ public class CuentaEssaludWs {
 		
 		return resultadoWs;
 	}
-
-
 }

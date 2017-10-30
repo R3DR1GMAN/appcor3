@@ -6,6 +6,7 @@ public class BCuentaEssalud {
 	private int    idUsuario;
 	private String usuario;
 	private String email;
+	private String claveApi;
 	private String codDispositivo;
 	private String codToken; 
 	private String estado;
@@ -32,6 +33,12 @@ public class BCuentaEssalud {
 	}
 	public String getEmail() {
 		return email;
+	}
+	public String getClaveApi() {
+		return claveApi;
+	}
+	public void setClaveApi(String claveApi) {
+		this.claveApi = claveApi;
 	}
 	public void setEmail(String email) {
 		this.email = email;
