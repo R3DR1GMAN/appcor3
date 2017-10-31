@@ -3,6 +3,7 @@ package com.redrigsoft.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -175,7 +176,7 @@ public static JSONArray obtenerCentrosAsistencialesEssaludJson(List<BCentroAsist
 	return jArrayContactos;
 }
 
-
+*/
 public static List<BCentroAsistencialEssalud> obtenerCentroAsistencialActualizados(){
 	
 	List<BCentroAsistencialEssalud> listaCentros = new ArrayList<BCentroAsistencialEssalud>();
@@ -187,7 +188,7 @@ public static List<BCentroAsistencialEssalud> obtenerCentroAsistencialActualizad
 	   try {
 			   
 		    con = DBConexion.crearConexionDB();	 
-			pst = con.prepareStatement("SELECT *FROM appcore.centro_asistencial_essalud where fec_actualiza IS NOT NULL");
+			pst = con.prepareStatement("SELECT *FROM centro_asistencial where fec_actualiza IS NOT NULL");
 			rs = pst.executeQuery();			    
   
 			while(rs.next()){
@@ -231,7 +232,7 @@ public static List<BCentroAsistencialEssalud> obtenerNuevosCentrosAsistenciales(
 	   try {
 			   
 		    con = DBConexion.crearConexionDB();	 
-			pst = con.prepareStatement("SELECT *FROM appcore.centro_asistencial_essalud where habilitado='SI' and cod_centro NOT IN ("+cad_centros_actuales+")");	
+			pst = con.prepareStatement("SELECT *FROM centro_asistencial where habilitado='SI' and cod_centro NOT IN ("+cad_centros_actuales+")");	
 			rs  = pst.executeQuery();			    
   
 			while(rs.next()){
@@ -298,7 +299,7 @@ public static List<BCentroAsistencialEssalud> filtroCentrosAsistencialesActualiz
 						      L5.add(centroActualizado);
 					}
 				} catch (ParseException e) {
-					System.out.println("Error al compara fechas actualizadas de centros: centro.getFec_actualiza():"+centro.getFec_actualiza()+" v/s centroActualizado.getFec_actualiza():"+centroActualizado.getFec_actualiza());
+					System.out.println("Error al comparar fechas actualizadas de centros: centro.getFec_actualiza():"+centro.getFec_actualiza()+" v/s centroActualizado.getFec_actualiza():"+centroActualizado.getFec_actualiza());
 					System.out.println("Error: "+e);
 					e.printStackTrace();
 				}
@@ -335,7 +336,7 @@ public static List<BCentroAsistencialEssalud> filtroCentrosAsistencialesActualiz
 	   try {
 			   
 		    con = DBConexion.crearConexionDB();	 
-			pst = con.prepareStatement("SELECT *FROM appcore.centro_asistencial_essalud where cod_centro IN ("+cad_centros_actualizados+")");	
+			pst = con.prepareStatement("SELECT *FROM centro_asistencial where cod_centro IN ("+cad_centros_actualizados+")");	
 			rs  = pst.executeQuery();			    
   
 			while(rs.next()){
@@ -372,6 +373,6 @@ public static List<BCentroAsistencialEssalud> filtroCentrosAsistencialesActualiz
 	return L5;
 }
 
-*/
+
 
 }

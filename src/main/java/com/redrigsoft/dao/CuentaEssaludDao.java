@@ -5,7 +5,10 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.redrigsoft.bean.BCuentaEssalud;
 import com.redrigsoft.db.DBConexion;
@@ -123,7 +126,7 @@ public class CuentaEssaludDao {
 
 		   try {
 			   		con = DBConexion.crearConexionDB();
-			   		pst = con.prepareStatement("UPDATE cuenta_usuario SET cod_token=? WHERE idCuenta=? AND idUsuario=? AND idDispositivo=?");
+			   		pst = con.prepareStatement("UPDATE cuenta_usuario SET cod_token=? WHERE idCuenta=? AND idUsuario=? AND cod_dispositivo=?");
 	   		 
 			   		pst.setString(1, bCuentaEssalud.getCodToken());
 			   		pst.setInt   (2, idCuenta);
@@ -145,21 +148,25 @@ public class CuentaEssaludDao {
 		return resultado;	
 	}
 	
-	
-/*	
-	public static int actualizarFechaUltimaSync(String idDispositivo, String idToken){
-		System.out.println("-> DAO actualizarFechaUltimaSync()::: idDispositivo:"+idDispositivo+" idToken:"+idToken); 
+	 
+	public static int actualizarFechaUltimaSync(int idCuenta, String codDispositivo, String codToken){ 
+		System.out.println("-> DAO actualizarFechaUltimaSync()::: codDispositivo:"+codDispositivo+" codToken:"+codToken); 
 		   int resultado         = 0;
 		   Connection        con = null;
 		   PreparedStatement pst = null; 
+		   
+		   Calendar calendar = Calendar.getInstance();
+		   calendar.setTime(new Date()); // Configuramos la fecha actual
+		   calendar.add(Calendar.DAY_OF_YEAR, -5);  // numero de días a añadir, o restar en caso de días<0
 
 		   try {
 			   		con = DBConexion.crearConexionDB();
-			   		pst = con.prepareStatement("UPDATE cuenta_essalud_maps SET fec_ult_sync=?, idToken=? WHERE idDispositivo=?");
+			   		pst = con.prepareStatement("UPDATE cuenta_usuario SET fec_ult_sync=?, cod_token=? WHERE WHERE idCuenta=? AND cod_dispositivo=?");
 	   		 
-			   		pst.setString(1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-			   		pst.setString(2, idToken); 
-			   		pst.setString(3, idDispositivo);
+			   		pst.setString(1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime()));
+			   		pst.setString(2, codToken);
+			   		pst.setInt   (3, idCuenta);
+			   		pst.setString(4, codDispositivo);
 
 			   		if (pst.executeUpdate()> 0) { // Num de registros afectados
 			   			resultado= 1;
@@ -171,10 +178,9 @@ public class CuentaEssaludDao {
 			   DBConexion.cerrarConexionDB(con, pst,null, null);			    	
 		   }
 		     
-		   System.out.println("*resultado: "+resultado); 
+		System.out.println("*resultado: "+resultado); 
 		   
 		return resultado;	
 	}
 	
-*/	
 }

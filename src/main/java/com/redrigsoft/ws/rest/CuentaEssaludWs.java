@@ -23,7 +23,6 @@ public class CuentaEssaludWs {
 	 
 	private Gson gson= new Gson();
 	
-	
 	@GET
 	@Path("/consultar")
 	@Produces(MediaType.APPLICATION_JSON)  
