@@ -156,14 +156,14 @@ public class CuentaEssaludDao {
 		   PreparedStatement pst = null; 
 		   
 		   Calendar calendar = Calendar.getInstance();
-		   calendar.setTime(new Date()); // Configuramos la fecha actual
-		   calendar.add(Calendar.DAY_OF_YEAR, -5);  // numero de días a añadir, o restar en caso de días<0
+		   calendar.setTime(new Date());
+		   calendar.add(Calendar.DAY_OF_YEAR, -5);  // numero de días a añadir, o restar en caso de días < 0
 
 		   try {
 			   		con = DBConexion.crearConexionDB();
 			   		pst = con.prepareStatement("UPDATE cuenta_usuario SET fec_ult_sync=?, cod_token=? WHERE WHERE idCuenta=? AND cod_dispositivo=?");
 	   		 
-			   		pst.setString(1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime()));
+			   		pst.setDate  (1, java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime())));
 			   		pst.setString(2, codToken);
 			   		pst.setInt   (3, idCuenta);
 			   		pst.setString(4, codDispositivo);
