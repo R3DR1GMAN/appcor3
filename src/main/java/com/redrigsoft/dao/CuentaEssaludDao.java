@@ -161,7 +161,7 @@ public class CuentaEssaludDao {
 
 		   try {
 			   		con = DBConexion.crearConexionDB();
-			   		pst = con.prepareStatement("UPDATE cuenta_usuario SET fec_ult_sync=?, cod_token=? WHERE WHERE idCuenta=? AND cod_dispositivo=?");
+			   		pst = con.prepareStatement("UPDATE cuenta_usuario SET fec_ult_sync=?, cod_token=? WHERE idCuenta=? AND cod_dispositivo=?");
 	   		 
 			   		pst.setDate  (1, java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime())));
 			   		pst.setString(2, codToken);
