@@ -157,7 +157,7 @@ public class CuentaEssaludDao {
 		   
 		   Calendar calendar = Calendar.getInstance();
 		   calendar.setTime(new Date());
-		   calendar.add(Calendar.DAY_OF_YEAR, -5);  // numero de días a añadir, o restar en caso de días < 0
+		   calendar.add(Calendar.HOUR, -5);  // numero de horas a añadir, o restar en caso de días < 0
 
 		   try {
 			   		con = DBConexion.crearConexionDB();
@@ -165,8 +165,7 @@ public class CuentaEssaludDao {
 	   		 
 			   		//pst.setDate  (1, java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime())));
 			   		
-			   		System.out.println("->Date:"+java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime())));
-			   		pst.setString  (1, "2017-10-29 00:00:00");
+			   		pst.setString(1, "2017-10-29 00:00:00");
 			   		pst.setString(2, codToken); 
 			   		pst.setInt   (3, idCuenta);
 			   		pst.setString(4, codDispositivo);
@@ -186,5 +185,5 @@ public class CuentaEssaludDao {
 		   
 		return resultado;	
 	}
-	
+
 }
