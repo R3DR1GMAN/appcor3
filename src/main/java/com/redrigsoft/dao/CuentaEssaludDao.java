@@ -162,15 +162,12 @@ public class CuentaEssaludDao {
 		   try {
 			   		con = DBConexion.crearConexionDB();
 			   		pst = con.prepareStatement("UPDATE cuenta_usuario SET fec_ult_sync=?, cod_token=? WHERE idCuenta=? AND cod_dispositivo=?");
-	   		 
-			   		//pst.setDate  (1, java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime())));
-			   		
-			   		pst.setString(1, "2017-10-29 00:00:00");
+	   		 			   		
+			   		pst.setString(1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime()));
 			   		pst.setString(2, codToken); 
 			   		pst.setInt   (3, idCuenta);
 			   		pst.setString(4, codDispositivo);
 
-			   		System.out.println("*executando...");
 			   		if (pst.executeUpdate()> 0) { // Num de registros afectados
 			   			resultado= 1;
 					}
@@ -181,7 +178,7 @@ public class CuentaEssaludDao {
 			   DBConexion.cerrarConexionDB(con, pst,null, null);			    	
 		   }
 		     
-		System.out.println("*resultado: "+resultado); 
+		System.out.println("*registros actualizados: "+resultado); 
 		   
 		return resultado;	
 	}
